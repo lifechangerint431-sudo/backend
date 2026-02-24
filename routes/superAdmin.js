@@ -5,6 +5,12 @@ const {
   getAllProduits, getProduitById, createProduit, updateProduit, 
   deleteProduit, toggleStatus 
 } = require('../controllers/produitLongrichController');
+
+const { 
+  getAllSantes, getSanteById, createSante, updateSante, 
+  deleteSante, toggleStatus: toggleSanteStatus 
+} = require('../controllers/santeController');
+
 const { uploadFiles } = require('../config/cloudinary'); // ✅ uploadFiles
 const models = require('../models');
 
@@ -24,6 +30,14 @@ router.post('/produits', authSuperAdmin, uploadFiles, createProduit);     // ✅
 router.put('/produits/:id', authSuperAdmin, uploadFiles, updateProduit);
 router.delete('/produits/:id', authSuperAdmin, deleteProduit);
 router.patch('/produits/:id/toggle', authSuperAdmin, toggleStatus);
+
+// ✅ ROUTES SANTÉ (après produits)
+router.get('/sante', authSuperAdmin, getAllSantes);
+router.get('/sante/:id', authSuperAdmin, getSanteById);
+router.post('/sante', authSuperAdmin, uploadFiles, createSante);
+router.put('/sante/:id', authSuperAdmin, uploadFiles, updateSante);
+router.delete('/sante/:id', authSuperAdmin, deleteSante);
+router.patch('/sante/:id/toggle', authSuperAdmin, toggleSanteStatus);
 
 // Stats
 router.get('/stats', authSuperAdmin, async (req, res) => {
